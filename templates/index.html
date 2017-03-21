@@ -1,0 +1,29 @@
+<html>
+<head><title>Say Whhhaaat!? editor</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+{{ full_table }}
+
+
+<script>
+    $(document).ready(function() {
+      $(".username select").change(function(ev) {
+          column_name = $(ev.target).attr("data-col");
+          selection_choice = $(ev.target).val()
+          guid = $(ev.target).attr('data-id');
+          data = {"id": guid }
+          data[column_name] = selection_choice
+          console.log('Going to update', guid, column_name, 'to', selection_choice, data);
+          // 'https://5986o5obfd.execute-api.us-west-2.amazonaws.com/prod/set_metadata
+          $.post('/update', data, function(val) {
+              console.log('Updated ' , val);
+          });
+      });
+    });
+</script>
+
+</body>
+</html>
